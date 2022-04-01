@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} PRETTYtiny-mart {% endblock %}
+{% block css %}
+{% endblock %}
+{% block body %}
+<style>
+.my_row{
+  background-color: #8c5d4f;
+  height: 40vh;
+
+}
+.advert_column {
+  float: left;
+  width: 50%;
+  
+}
+.advert_card{
+  min-height: 30vh;
+  justify-content: center;
+  text-align: center;
+}
+
+</style>
+<div>
+<div>
+  
+  <div class="my_row" >
+    {% if request.user.is_authenticated %}
+    <br/>
+      <p> <h2 style="color: yellowgreen;"><b><center> We make your tiny one pretty</center></b></h3></p>
+
+    <div class="advert_column">
+      <div class="advert_card" >
+        <img src="/static/shop.jpeg" class="card-img-top" style="width: 400px; height: 200px;" alt="..."/>
+
+          <p>
+            Thank you for joing us,,<br/>
+            You pick We deliver
+          </p>
+           
+          
+      </div>
+    </div>
+
+    <div class="advert_column">
+      <div class="advert_card" >
+        <img src="/static/markets.jpeg" class="card-img-top" style="width: 400px; height: 200px;" alt="..."/>
+        <div class="card-body">
+          <p>
+            are you a baby store owner its time to reach new market,,sell your products online
+          </p>           
+          <a href="/registerbsn/" class="">Register your business with us today </a> 
+        </div>
+      </div>
+    </div>
+  {% else %}
+
+  <br/>
+  <p> <h2 style="color: yellowgreen;"><b><center> We make your tiny one pretty</center></b></h3></p>
+
+<div class="advert_column">
+  <div class="advert_card" >
+    <img src="/static/shop.jpeg" class="card-img-top" style="width: 400px; height: 200px;" alt="..."/>
+
+      <p>
+        are you a mom or guardian,You can now buy baby products from the comfort of your house and from the baby store of your choice
+      </p>
+       
+      
+  </div>
+</div>
+
+<div class="advert_column">
+  <div class="advert_card" >
+    <img src="/static/markets.jpeg" class="card-img-top" style="width: 400px; height: 200px;" alt="..."/>
+    <div class="card-body">
+      <p>
+        are you a baby store owner its time to reach new market,,sell your products online
+      </p>           
+      <a href="/registerbsn/" class="">Register your business with us today </a> 
+    </div>
+  </div>
+</div>
+
+  
+
+  {% endif %}
+</div>
+</div>
+
+  <div class="container mt-2 mb-3">
+  <div class="row">
+    {% for product in products %}
+    <div class="col-lg-4 my-4">
+      <div class="card shadow align-items-center" style="width: 20rem; height: 25rem;">
+        <img src="/media/{{product.image}}" class="card-img-top" style="width: 170px; height: 260px;" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <hr>
+          {% if request.user.is_authenticated %}
+          <button data-product="{{product.id}}" data-action="add" class="btn add-btn update-cart"
+            style="background-color: #8c5d4f; color: white;">Add To Cart</button>
+          <a href="/product_view/{{product.id}}/" class="btn btn-outline-secondary">View</a>
+          {% else %}
+          <button class="btn" style="background-color: #8c5d4f; color: white;">Login to add the item</button>
+          {% endif %}
+          <h4 style="display: inline-block;">&nbsp;ksh{{product.price}}</h4><hr/>
+          <h6>Shop: {{product.bsn_name}}</h6>
+          <h6>location: {{product.bsn_location}}</h6>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+{% if alert %}
+  alert("Logout Sucessfull.")
+  window.location.href = '/'
+{% endif %}
+</script>
+{% endblock %}
